@@ -4,6 +4,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
 
+        <item name="colorPrimary">#F89680</item>
+        <item name="colorPrimaryDark">#F89680</item>
+        <item name="colorAccent">#F89680</item>
+
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
