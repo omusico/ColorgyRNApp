@@ -67,7 +67,7 @@ var Table = React.createClass({
       return (
         <Navigator
           ref={(navigator) => this._registerNavigator(navigator)}
-          initialRoute={{ name: 'index' }}
+          initialRoute={{ name: 'createCourse' }}
           renderScene={(route, navigator) => {
             switch(route.name) {
               case 'index':

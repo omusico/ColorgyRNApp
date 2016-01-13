@@ -26,6 +26,7 @@ import TextInput from '../../components/TextInput';
 import TitleBarLayout from '../../components/TitleBarLayout';
 import GhostButton from '../../components/GhostButton';
 import Button from '../../components/Button';
+import TableCreateCoursePage from '../../components/TableCreateCoursePage';
 
 import {
   doLoadTableCourses,
@@ -245,89 +246,11 @@ var CreateCourseContainer = React.createClass({
   render() {
 
     return (
-      <TitleBarLayout
-        enableOffsetTop={this.props.translucentStatusBar}
-        offsetTop={this.props.statusBarHeight}
-        style={this.props.style}
-        contentContainerStyle={styles.container}
-        title="手動建立課程"
-        actions={[
-          { title: '返回', icon: require('../../assets/images/icon_arrow_back_white.png'), onPress: this._handleBack, show: 'always' },
-          { title: '儲存', icon: require('../../assets/images/icon_arrow_back_white.png'), onPress: this._handleSave, show: 'always' },
-        ]}
-      >
-        <ScrollView>
-          <View style={{ backgroundColor: 'white', padding: 12 }}>
-            <TextInput
-              placeholder="課程名稱"
-              onChangeText={(t) => this.setState({ courseName: t })}
-              value={this.state.courseName}
-            />
-            <TextInput
-              placeholder="教師姓名"
-              onChangeText={(t) => this.setState({ courseLecturer: t })}
-              value={this.state.courseLecturer}
-            />
-          </View>
-          {(() => {
-            return this.state.courseTimes.map((courseTime, i, courseTimes) => {
-              return (
-                <View style={{
-                  flexDirection: 'row',
-                  alignItems: 'center'
-                }}>
-                  <CourseTimeBlock
-                    style={{
-                      flex: 1,
-                      marginLeft: 12
-                    }}
-                    key={i}
-                    onSetOverlayElement={(element) => {
-                      this.props.dispatch(setOverlayElement(element))
-                    }}
-                    periodData={this.props.periodData}
-                    location={courseTime.location}
-                    day={courseTime.day}
-                    periodStart={courseTime.periodStart}
-                    periodEnd={courseTime.periodEnd}
-                    onLocationChange={(location) => this._handleCourseTimeChange(i, { location })}
-                    onDayChange={(day) => this._handleCourseTimeChange(i, { day })}
-                    onPeriodStartChange={(periodStart) => this._handleCourseTimeChange(i, { periodStart })}
-                    onPeriodEndChange={(periodEnd) => this._handleCourseTimeChange(i, { periodEnd })}
-                  />
-                  <TouchableOpacity
-                    style={{
-                      width: 40,
-                      height: 40,
-                      marginLeft: 12,
-                    }}
-                    onPress={() => {
-                      if (courseTimes.length > 1) this._deleteCourseTime(i)
-                    }}
-                  >
-                    <Icon
-                      name="clear"
-                      size={30}
-                      color={(courseTimes.length > 1) ? '#999999' : 'transparent'}
-                    />
-                  </TouchableOpacity>
-                </View>
-              );
-            });
-          })()}
-          <Button
-            value="新增上課時間"
-            onPress={this._addCourseTime}
-            style={styles.addCourseTimeButton}
-          />
-          <Button
-            value="Save"
-            onPress={this._handleSave}
-            style={styles.addCourseTimeButton}
-          />
-          <Text>{JSON.stringify(this.state, null, 2)}</Text>
-        </ScrollView>
-      </TitleBarLayout>
+      <TableCreateCoursePage
+        handleBack={this._handleBack}
+        translucentStatusBar={this.props.translucentStatusBar}
+        statusBarHeight={this.props.statusBarHeight}
+      />
     );
   }
 });
