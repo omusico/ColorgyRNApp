@@ -96,12 +96,6 @@ var App = React.createClass({
                 <View tabLabel="我的課表" style={{ flex: 1, backgroundColor: '#EEEEEE' }}>
                   <TableContainer />
                 </View>
-                <View tabLabel="模糊聊" style={{ flex: 1 }}>
-                  <ChatContainer />
-                </View>
-                <View tabLabel="好朋友" style={{ flex: 1 }}>
-                  <FriendsContainer />
-                </View>
                 <View tabLabel="更多" style={{ flex: 1 }}>
                   <MoreContainer />
                 </View>
