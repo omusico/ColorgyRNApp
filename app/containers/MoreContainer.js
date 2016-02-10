@@ -6,9 +6,7 @@ import React, {
   TouchableOpacity,
   ProgressBarAndroid,
   TouchableWithoutFeedback,
-  Alert,
-  Linking,
-  NativeModules
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux/native';
 
@@ -18,6 +16,7 @@ import ListItem from '../components/ListItem';
 
 import colorgyAPI from '../utils/colorgyAPI';
 import notify from '../utils/notify';
+import chatAPI from '../utils/chatAPI';
 
 import { doClearAccessToken } from '../actions/colorgyAPIActions';
 import { doEnterDevModePress } from '../actions/devModeActions';
@@ -30,15 +29,6 @@ var MoreContainer = React.createClass({
     };
   },
 
-  _openAboutURL() {
-    if (NativeModules.OpenURLAndroid) {
-      NativeModules.OpenURLAndroid.openURL('https://www.facebook.com/Colorgy-1529686803975150/', (e)=> {
-        console.error(e);
-      }, () => {
-      });
-    }
-  },
-
   _showLogoutAlert() {
     Alert.alert('確認登出', '確定要登出嗎？一旦登出後，所有未同步到網路的資料將會消失！', [
        { text: '取消' },
@@ -48,6 +38,7 @@ var MoreContainer = React.createClass({
 
   _handleLogout() {
     this.props.dispatch(doClearAccessToken());
+    chatAPI.clean_storage();
   },
 
   render: function() {
@@ -75,7 +66,8 @@ var MoreContainer = React.createClass({
           />
           <ListItem
             text="關於我們"
-            onPress={this._openAboutURL}
+            disabled={true}
+            onDisabledPress={() => notify('此功能尚未啟用')}
           />
           <ListItem
             text="登出"
