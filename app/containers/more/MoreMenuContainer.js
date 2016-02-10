@@ -10,16 +10,17 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux/native';
 
-import Text from '../components/Text';
-import TitleBarLayout from '../components/TitleBarLayout';
-import ListItem from '../components/ListItem';
+import Text from '../../components/Text';
+import TitleBarLayout from '../../components/TitleBarLayout';
+import ListTitle from '../../components/ListTitle';
+import ListItem from '../../components/ListItem';
 
 import colorgyAPI from '../utils/colorgyAPI';
 import notify from '../utils/notify';
 import chatAPI from '../utils/chatAPI';
 
-import { doClearAccessToken } from '../actions/colorgyAPIActions';
-import { doEnterDevModePress } from '../actions/devModeActions';
+import { doClearAccessToken } from '../../actions/colorgyAPIActions';
+import { doEnterDevModePress } from '../../actions/devModeActions';
 
 var MoreContainer = React.createClass({
 
@@ -55,14 +56,17 @@ var MoreContainer = React.createClass({
             >
               <Image
                 style={styles.logoImage}
-                source={require('../assets/images/colorgy_icon_with_text.png')}
+                source={require('../../assets/images/colorgy_icon_with_text.png')}
               />
             </TouchableWithoutFeedback>
           </View>
           <ListItem
+            text="隱私權設定"
+            onPress={() => { this.props.navigator.push({ name: 'privacySettings' }); }}
+          />
+          <ListItem
             text="問題回報"
-            disabled={true}
-            onDisabledPress={() => notify('此功能尚未啟用')}
+            onPress={() => { this.props.navigator.push({ name: 'feedback' }); }}
           />
           <ListItem
             text="關於我們"
@@ -72,7 +76,7 @@ var MoreContainer = React.createClass({
           <ListItem
             text="登出"
             onPress={this._showLogoutAlert}
-            last={true}
+            borderBottom={true}
           />
         </ScrollView>
       </TitleBarLayout>

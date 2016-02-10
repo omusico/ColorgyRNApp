@@ -11,7 +11,7 @@ import OrgSelectContainer from './OrgSelectContainer';
 import DevModeContainer from './DevModeContainer';
 import TableContainer from './table';
 import BoardContainer from './board';
-import MoreContainer from './MoreContainer';
+import MoreContainer from './more';
 import ChatContainer from './chat';
 import FriendsContainer from './friends';
 import Messenger from './messenger';
@@ -95,12 +95,6 @@ var App = React.createClass({
               >
                 <View tabLabel="我的課表" style={{ flex: 1, backgroundColor: '#EEEEEE' }}>
                   <TableContainer />
-                </View>
-                <View tabLabel="模糊聊" style={{ flex: 1 }}>
-                  <ChatContainer />
-                </View>
-                <View tabLabel="好朋友" style={{ flex: 1 }}>
-                  <FriendsContainer />
                 </View>
                 <View tabLabel="更多" style={{ flex: 1 }}>
                   <MoreContainer />
