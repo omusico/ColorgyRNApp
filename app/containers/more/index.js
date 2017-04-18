@@ -1,6 +1,7 @@
 import React, {
   Navigator,
-  ProgressBarAndroid
+  ProgressBarAndroid,
+  BackAndroid
 } from 'react-native';
 import { connect } from 'react-redux/native';
 
@@ -9,6 +10,7 @@ import TitleBarLayout from '../../components/TitleBarLayout';
 
 import MoreMenuContainer from './MoreMenuContainer';
 import PrivacySettingsContainer from './PrivacySettingsContainer';
+import CourseNotificationSettingsContainer from './CourseNotificationSettingsContainer';
 import FeedbackContainer from '../FeedbackContainer';
 
 import ga from '../../utils/ga';
@@ -23,7 +25,11 @@ var MoreContainer = React.createClass({
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.navigateBackCount !== this.props.navigateBackCount) {
-      this.navigator.pop();
+      if (!this.navigator.state.routeStack || this.navigator.state.routeStack.length <= 1) {
+        BackAndroid.exitApp();
+      } else {
+        this.navigator.pop();
+      }
     } else if (nextProps.tabRePressCount !== this.props.tabRePressCount) {
       if (this.navigator) this.navigator.popToTop();
     }
@@ -65,6 +71,11 @@ var MoreContainer = React.createClass({
                 <PrivacySettingsContainer navigator={navigator} />
               );
               break;
+            case 'courseNotificationSettings':
+              return (
+                <CourseNotificationSettingsContainer navigator={navigator} />
+              );
+              break;
             case 'feedback':
               return (
                 <FeedbackContainer navigator={navigator} />
@@ -90,8 +101,8 @@ var MoreContainer = React.createClass({
 
 export default connect((state) => ({
   userId: state.colorgyAPI.me && state.colorgyAPI.me.id,
-  // navigateBackCount: state.table.navigateBackCount,
-  // tabRePressCount: state.appTab.rePressCountOnTab['0'],
+  navigateBackCount: state.more.navigateBackCount,
+  tabRePressCount: state.appTab.rePressCountOnTab['4'],
   networkConnectivity: state.deviceInfo.networkConnectivity,
   translucentStatusBar: state.deviceInfo.translucentStatusBar,
   statusBarHeight: state.deviceInfo.statusBarHeight
